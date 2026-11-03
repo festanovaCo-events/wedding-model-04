@@ -1,0 +1,386 @@
+:host {
+  display: contents;
+}
+
+.entrance-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: var(--theme-primary, #0b2e2a);
+}
+
+.curtain {
+  --seal-size: 196px;
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  perspective: 1600px;
+  perspective-origin: 50% 12%;
+  transform-style: preserve-3d;
+}
+
+.reveal {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 28px 24px 36px;
+  text-align: center;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 20%, rgba(201, 168, 76, 0.12), transparent 70%),
+    var(--theme-primary, #0b2e2a);
+  opacity: 0;
+  transform: scale(0.96);
+  transition:
+    opacity 800ms ease 520ms,
+    transform 1100ms cubic-bezier(0.22, 1, 0.36, 1) 520ms;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+.reveal-crest {
+  position: relative;
+  width: 88px;
+  height: 88px;
+  margin-bottom: 6px;
+  display: grid;
+  place-items: center;
+}
+
+.reveal-crest img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.reveal-crest span {
+  position: relative;
+  z-index: 1;
+  color: var(--theme-accent, #c9a84c);
+  font-family: Georgia, 'Times New Roman', serif;
+  font-size: 18px;
+  letter-spacing: 0.08em;
+}
+
+.reveal-kicker {
+  margin: 0;
+  color: rgba(247, 243, 235, 0.72);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.34em;
+  text-transform: uppercase;
+}
+
+.reveal-names {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 0;
+  line-height: 0.92;
+}
+
+.name,
+.ampersand {
+  font-family: Georgia, 'Times New Roman', serif;
+  color: var(--theme-accent, #c9a84c);
+}
+
+.name {
+  font-size: 42px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.ampersand {
+  font-family: 'Great Vibes', cursive;
+  font-size: 28px;
+  margin: 2px 0;
+}
+
+.reveal-rule {
+  width: 64px;
+  height: 1px;
+  margin: 4px 0;
+  background: var(--theme-accent, #c9a84c);
+}
+
+.reveal-date {
+  margin: 0;
+  color: #f7f3eb;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+}
+
+.reveal-note {
+  margin: 10px 0 0;
+  max-width: 280px;
+  color: rgba(247, 243, 235, 0.78);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.curtain::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: var(--theme-primary, #0b2e2a);
+}
+
+.panel {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  z-index: 2;
+  width: calc(50% + 1px);
+  overflow: hidden;
+  background-color: var(--theme-surface, #f7f3eb);
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+  will-change: transform;
+}
+
+.panel-left {
+  left: 0;
+  z-index: 3;
+  transform-origin: left center;
+}
+
+.panel-right {
+  right: 0;
+  z-index: 2;
+  transform-origin: right center;
+}
+
+.panel-corner {
+  position: absolute;
+  width: clamp(110px, 36vw, 210px);
+  height: auto;
+  pointer-events: none;
+  user-select: none;
+  opacity: 0.95;
+}
+
+.panel-corner--tl {
+  top: 0;
+  left: 0;
+}
+
+.panel-corner--tr {
+  top: 0;
+  right: 0;
+}
+
+.panel-corner--bl {
+  bottom: 0;
+  left: 0;
+}
+
+.panel-corner--br {
+  bottom: 0;
+  right: 0;
+}
+
+/* Línea nítida + sombra suave = pliegue un poco levantado */
+.panel-left::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: rgba(120, 92, 58, 0.45);
+  box-shadow: 3px 0 10px rgba(40, 28, 16, 0.18);
+}
+
+.panel-right::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: 1px;
+  pointer-events: none;
+  background: rgba(120, 92, 58, 0.28);
+}
+
+.seal-half {
+  position: absolute;
+  top: 50%;
+  z-index: 2;
+  width: var(--seal-size);
+  overflow: hidden;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.curtain.is-open .seal-half {
+  opacity: 1;
+}
+
+.seal-half-left {
+  right: 0;
+  transform: translate(50%, -50%);
+  clip-path: inset(0 50% 0 0);
+}
+
+.seal-half-right {
+  left: 0;
+  transform: translate(-50%, -50%);
+  clip-path: inset(0 0 0 50%);
+}
+
+.seal-button {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 5;
+  width: var(--seal-size);
+  aspect-ratio: 688 / 720;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(0 6px 14px rgba(40, 28, 16, 0.28));
+}
+
+.seal-button:disabled {
+  cursor: default;
+}
+
+.seal-button.is-open {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.seal-button.is-shaking {
+  animation: seal-bounce 260ms ease;
+}
+
+.seal-button:focus-visible {
+  outline: 2px solid var(--theme-accent, #c9a84c);
+  outline-offset: 6px;
+}
+
+.crest-frame {
+  display: block;
+  width: var(--seal-size);
+  max-width: none;
+  height: auto;
+  pointer-events: none;
+}
+
+.tap {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 10%;
+  z-index: 4;
+  margin: 0;
+  color: rgba(90, 68, 42, 0.72);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.42em;
+  text-align: center;
+  text-transform: uppercase;
+  transition: opacity 280ms ease;
+}
+
+.tap.is-gone {
+  opacity: 0;
+}
+
+.actions {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  margin-top: 8px;
+}
+
+.enter-button {
+  border: 1px solid var(--theme-accent, #c9a84c);
+  border-radius: 4px;
+  background: var(--theme-accent, #c9a84c);
+  color: var(--theme-primary-dark, #071f1c);
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.06em;
+  padding: 10px 22px;
+  cursor: pointer;
+}
+
+.enter-button--ghost {
+  background: transparent;
+  color: #f7f3eb;
+}
+
+.enter-button:hover {
+  background: #d4b65c;
+  color: #071f1c;
+}
+
+.enter-button:focus-visible {
+  outline: 2px solid #f7f3eb;
+  outline-offset: 3px;
+}
+
+@keyframes seal-bounce {
+  0%,
+  100% {
+    transform: translate(-50%, -50%);
+  }
+  25% {
+    transform: translate(calc(-50% - 8px), -50%);
+  }
+  50% {
+    transform: translate(calc(-50% + 8px), -50%);
+  }
+  75% {
+    transform: translate(calc(-50% - 4px), -50%);
+  }
+}
+
+@media (min-width: 768px) {
+  .curtain {
+    --seal-size: 228px;
+  }
+
+  .panel-corner {
+    width: clamp(160px, 22vw, 260px);
+  }
+
+  .actions {
+    flex-direction: row;
+    justify-content: center;
+  }
+
+  .name {
+    font-size: 56px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .reveal,
+  .tap,
+  .panel-left,
+  .panel-right {
+    transition: none;
+  }
+
+  .curtain {
+    perspective: none;
+  }
+}
