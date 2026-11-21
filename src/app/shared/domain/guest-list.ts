@@ -1,4 +1,4 @@
-import { InvitationInfoResponse } from '../interfaces/invitation.interface';
+import { Invitation } from '../interfaces/invitation.interface';
 
 export class GuestList {
   private constructor(
@@ -11,12 +11,12 @@ export class GuestList {
     return new GuestList('', 0, []);
   }
 
-  static fromInvitation(data: InvitationInfoResponse): GuestList {
-    const hostName = data.data.invitation.name || '';
-    const maximumSeats = data.data.invitation.seats_reserved;
+  static fromInvitation(invitation: Invitation): GuestList {
+    const hostName = invitation.name || '';
+    const maximumSeats = invitation.seats_reserved;
     const names = hostName ? [hostName] : [];
 
-    for (const guest of data.data.invitation.guests ?? []) {
+    for (const guest of invitation.guests ?? []) {
       if (guest.name !== hostName && !names.includes(guest.name)) {
         names.push(guest.name);
       }

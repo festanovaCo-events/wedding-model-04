@@ -4,25 +4,25 @@ import {
   formatBannerDate,
   formatEventDateLabel,
   formatLongDate,
+  formatModelDate,
+  formatModelTime,
   instagramExploreUrl,
   toGoogleCalendarStamp,
 } from '../utils/wedding-datetime';
 
-const HUSBAND_NAME = 'Alex';
-const WIFE_NAME = 'Sam';
-const HASHTAG = `#${HUSBAND_NAME}&${WIFE_NAME}`;
+const HUSBAND_NAME = 'Carlos';
+const WIFE_NAME = 'Camila';
+const HASHTAG = `#${HUSBAND_NAME}Y${WIFE_NAME}`;
 const CALENDAR_DETAILS = 'Te esperamos en este momento especial.';
 
-const CEREMONY_START = '2026-09-12T17:00:00-05:00';
-const CEREMONY_END = '2026-09-12T18:00:00-05:00';
-const PARTY_START = '2026-09-12T19:30:00-05:00';
-const PARTY_END = '2026-09-12T23:00:00-05:00';
-const CONFIRMATION_DEADLINE = '2026-11-20T23:59:59-05:00';
+const RECEPTION_START = '2026-12-19T17:00:00-05:00';
+const RECEPTION_END = '2026-12-19T23:00:00-05:00';
+const CONFIRMATION_DEADLINE = '2026-12-05T23:59:59-05:00';
 
-const CEREMONY_PLACE = 'Lugar de la ceremonia';
-const CEREMONY_ADDRESS = 'Dirección de la ceremonia';
-const PARTY_PLACE = 'Lugar de la fiesta';
-const PARTY_ADDRESS = 'Dirección de la fiesta';
+const RECEPTION_PLACE = 'Salón de Eventos Jardín';
+const RECEPTION_ADDRESS = 'C. Aquiles Serdán 1633, Benito Juárez Nte, Coatzacoalcos, Veracruz';
+const RECEPTION_MAPS_QUERY =
+  'C. Aquiles Serdán 1633, Benito Juárez Nte, Coatzacoalcos, Veracruz';
 
 /** Entrada: 'letter' abre una carta al hacer clic; 'heart' usa el loader del corazón. */
 export type EntranceAnimation = 'heart' | 'letter';
@@ -41,6 +41,8 @@ function calendarUrl(title: string, startsAt: string, endsAt: string, location: 
   });
 }
 
+const modelDate = formatModelDate(RECEPTION_START);
+
 export const WEDDING_INFO = {
   entrance: entranceAnimation(),
 
@@ -48,51 +50,97 @@ export const WEDDING_INFO = {
     husbandName: HUSBAND_NAME,
     wifeName: WIFE_NAME,
     fullName: `${HUSBAND_NAME} & ${WIFE_NAME}`,
+    monogram: `${HUSBAND_NAME.charAt(0)} | ${WIFE_NAME.charAt(0)}`,
     hashtag: HASHTAG,
   },
 
   confirmation: {
     deadline: CONFIRMATION_DEADLINE,
     deadlineLabel: formatLongDate(CONFIRMATION_DEADLINE),
+    deadlineShort: '05 de diciembre',
+  },
+
+  contacts: {
+    bride: {
+      label: 'Contacto novia',
+      url: 'https://wa.me/520000000000',
+    },
+    groom: {
+      label: 'Contacto novio',
+      url: 'https://wa.me/520000000000',
+    },
   },
 
   dates: {
-    bannerDate: formatBannerDate(CEREMONY_START),
-    weddingDate: CEREMONY_START,
-    ceremonyDate: formatEventDateLabel(CEREMONY_START),
-    partyDate: formatEventDateLabel(PARTY_START),
-    ceremonyDateTimeISO: toGoogleCalendarStamp(CEREMONY_START),
-    ceremonyEndDateTimeISO: toGoogleCalendarStamp(CEREMONY_END),
-    partyDateTimeISO: toGoogleCalendarStamp(PARTY_START),
-    partyEndDateTimeISO: toGoogleCalendarStamp(PARTY_END),
+    bannerDate: formatBannerDate(RECEPTION_START),
+    weddingDate: RECEPTION_START,
+    ceremonyDate: formatEventDateLabel(RECEPTION_START),
+    partyDate: formatEventDateLabel(RECEPTION_START),
+    ceremonyDateTimeISO: toGoogleCalendarStamp(RECEPTION_START),
+    ceremonyEndDateTimeISO: toGoogleCalendarStamp(RECEPTION_END),
+    partyDateTimeISO: toGoogleCalendarStamp(RECEPTION_START),
+    partyEndDateTimeISO: toGoogleCalendarStamp(RECEPTION_END),
+    displayDate: `${modelDate.dayOfWeek} ${modelDate.day} ${modelDate.month} ${modelDate.year}`,
+    dayOfWeek: modelDate.dayOfWeek,
+    day: modelDate.day,
+    month: modelDate.month,
+    year: modelDate.year,
   },
 
   quote: {
-    text: 'Una frase de la pareja va aquí.',
+    text: 'Y sobre todas estas cosas, vístanse de amor, que es el vínculo perfecto',
+    reference: 'Colosenses 3:14',
+  },
+
+  parents: {
+    intro: 'Con nuestro amor, la bendición de Dios y la de nuestros padres:',
+    nosotros: 'Nosotros',
+    inviteHonor: 'Tenemos el honor de invitarte a celebrar nuestra unión en matrimonio',
+    bride: {
+      label: 'Padres de la novia',
+      names: ['Milena Sanchez Loza', 'Pablo Martinez Gomez'],
+    },
+    groom: {
+      label: 'Padres del novio',
+      names: ['Yolanda Suarez Justiniano', 'Victor Valverde Antelo'],
+    },
   },
 
   events: {
     ceremony: {
-      title: 'Ceremonia',
-      place: CEREMONY_PLACE,
-      address: CEREMONY_ADDRESS,
-      location: 'Dirección de la ceremonia',
-      date: formatEventDateLabel(CEREMONY_START),
-      startsAt: CEREMONY_START,
-      endsAt: CEREMONY_END,
-      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Bogota',
-      calendarUrl: calendarUrl('Ceremonia', CEREMONY_START, CEREMONY_END, `${CEREMONY_PLACE}, ${CEREMONY_ADDRESS}`),
+      title: 'Recepción',
+      place: RECEPTION_PLACE,
+      address: RECEPTION_ADDRESS,
+      location: `${RECEPTION_PLACE}, ${RECEPTION_ADDRESS}`,
+      date: formatEventDateLabel(RECEPTION_START),
+      time: formatModelTime(RECEPTION_START),
+      timeLabel: '17:00 HRS.',
+      startsAt: RECEPTION_START,
+      endsAt: RECEPTION_END,
+      mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(RECEPTION_MAPS_QUERY)}`,
+      calendarUrl: calendarUrl(
+        'Recepción',
+        RECEPTION_START,
+        RECEPTION_END,
+        `${RECEPTION_PLACE}, ${RECEPTION_ADDRESS}`,
+      ),
     },
     party: {
       title: 'Fiesta',
-      place: PARTY_PLACE,
-      address: PARTY_ADDRESS,
-      location: 'Dirección de la fiesta',
-      date: formatEventDateLabel(PARTY_START),
-      startsAt: PARTY_START,
-      endsAt: PARTY_END,
-      mapsUrl: 'https://www.google.com/maps/search/?api=1&query=Bogota',
-      calendarUrl: calendarUrl('Fiesta', PARTY_START, PARTY_END, `${PARTY_PLACE}, ${PARTY_ADDRESS}`),
+      place: RECEPTION_PLACE,
+      address: RECEPTION_ADDRESS,
+      location: `${RECEPTION_PLACE}, ${RECEPTION_ADDRESS}`,
+      date: formatEventDateLabel(RECEPTION_START),
+      time: formatModelTime(RECEPTION_START),
+      startsAt: RECEPTION_START,
+      endsAt: RECEPTION_END,
+      mapsUrl: `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(RECEPTION_MAPS_QUERY)}`,
+      calendarUrl: calendarUrl(
+        'Fiesta',
+        RECEPTION_START,
+        RECEPTION_END,
+        `${RECEPTION_PLACE}, ${RECEPTION_ADDRESS}`,
+      ),
     },
   },
 
@@ -105,14 +153,29 @@ export const WEDDING_INFO = {
   assets: {
     bannerImage: ACTIVE_THEME.assets.bannerImage,
     decoration: ACTIVE_THEME.assets.decoration,
+    floralHeroTl: 'assets/images/florals/floral-magnolia.png',
+    floralNamesSide: 'assets/images/florals/floral-names-side.jpg',
+    heroPhoto: 'assets/images/couple-hero.jpg',
+    receptionPhoto: 'assets/images/couple-reception.jpg',
+    closeupPhoto: 'assets/images/couple-closeup.jpg',
+    closingPhoto: 'assets/images/couple-closing.jpg',
   },
 
   animations: ACTIVE_THEME.animations,
 
   sections: {
     gifts: {
-      title: 'Regalos',
-      description: 'El texto de la sección de regalos va aquí.',
+      title: 'Sugerencia de Regalos',
+      description:
+        'El mejor regalo es tu presencia, pero si deseas tener un detalle con nosotros, les dejamos estas opciones:',
+      envelopeLabel: 'Lluvia de sobres',
+      transferLabel: 'Transferencia',
+      bankDetails: ['AAAA BBBBB', 'CCCC DDDDD', 'EEEEEE'],
+    },
+    dressCode: {
+      title: 'Código de Vestimenta',
+      label: 'Semi formal',
+      note: 'Con mucho cariño les pedimos evitar prendas en color blanco y beige.',
     },
     instagram: {
       title: 'Fotos del día',

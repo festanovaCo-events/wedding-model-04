@@ -4,31 +4,39 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { EMPTY } from 'rxjs';
 import { catchError, filter, switchMap } from 'rxjs/operators';
-import { ModelHeroComponent } from '../../components/hero/model-hero.component';
-import { ModelEventsComponent } from '../../components/events/model-events.component';
-import { ModelGiftsComponent } from '../../components/gifts/model-gifts.component';
-import { ModelRsvpComponent } from '../../components/rsvp/model-rsvp.component';
+import { M04HeroComponent } from '../../components/hero/m04-hero.component';
+import { M04EventsComponent } from '../../components/events/m04-events.component';
+import { M04GiftsComponent } from '../../components/gifts/m04-gifts.component';
+import { M04RsvpComponent } from '../../components/rsvp/m04-rsvp.component';
+import { M04ClosingComponent } from '../../components/closing/m04-closing.component';
 import { ModalComponent } from '../../shared/components/common/modal/modal.component';
 import { ConfirmationGuideStore } from '../../shared/services/confirmation-guide.store';
 import { ModalFlowService } from '../../shared/services/modal-flow.service';
 import { InvitationStateService } from '../../shared/services/invitation-state.service';
-import { InvitationInfoResponse, hasResponded } from '../../shared/interfaces/invitation.interface';
+import {
+  InvitationInfoResponse,
+  InvitationStatus,
+  hasResponded,
+} from '../../shared/interfaces/invitation.interface';
 import { shouldShowExpiredInvitationPage } from '../../shared/utils/confirmation-deadline';
+import { MODEL_04_INFO } from '../../constants/m04-info';
 
 @Component({
-  selector: 'app-model-page',
+  selector: 'app-m04-page',
   standalone: true,
   imports: [
     CommonModule,
-    ModelHeroComponent,
-    ModelEventsComponent,
-    ModelGiftsComponent,
-    ModelRsvpComponent,
+    M04HeroComponent,
+    M04EventsComponent,
+    M04GiftsComponent,
+    M04RsvpComponent,
+    M04ClosingComponent,
     ModalComponent,
   ],
-  templateUrl: './model-page.component.html',
+  templateUrl: './m04-page.component.html',
 })
-export class ModelPageComponent implements OnInit {
+export class M04PageComponent implements OnInit {
+  readonly guide = MODEL_04_INFO.confirmationGuide;
   showConfirmationGuide = false;
 
   private readonly destroyRef = inject(DestroyRef);
@@ -86,7 +94,7 @@ export class ModelPageComponent implements OnInit {
         filter((data): data is InvitationInfoResponse => data !== null),
         takeUntilDestroyed(this.destroyRef),
       )
-      .subscribe((data) => this.handleInvitation(data));
+      .subscribe((data) => this.handleInvitation(data.data.invitation.status));
   }
 
   openConfirmation(): void {
@@ -98,10 +106,9 @@ export class ModelPageComponent implements OnInit {
     this.dismissConfirmationGuide();
   }
 
-  private handleInvitation(data: InvitationInfoResponse): void {
+  private handleInvitation(status: InvitationStatus): void {
     this.invitationLoadPending = false;
 
-    const status = data.data.invitation.status;
     if (!this.isPreviewMode && shouldShowExpiredInvitationPage(status)) {
       void this.router.navigate(['/expired'], {
         queryParamsHandling: 'preserve',

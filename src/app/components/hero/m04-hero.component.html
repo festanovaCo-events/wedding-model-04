@@ -1,0 +1,109 @@
+<section class="m04-hero">
+  <div class="m04-hero__intro">
+    <img class="m04-floral m04-floral--tl" [src]="info.floralTl" alt="" aria-hidden="true" />
+
+    <blockquote class="m04-hero__quote">
+      <p>“{{ info.quote }}”</p>
+      <cite>{{ info.quoteReference }}</cite>
+    </blockquote>
+
+    <div class="m04-hero__monogram" [attr.aria-label]="info.monogram">
+      <span class="m04-hero__monogram-letter">{{ info.husbandInitial }}</span>
+      <span class="m04-hero__monogram-sep" aria-hidden="true"></span>
+      <span class="m04-hero__monogram-letter">{{ info.wifeInitial }}</span>
+    </div>
+
+    <p class="m04-hero__kicker">{{ info.kicker }}</p>
+  </div>
+
+  <div class="m04-hero__photo-bleed m04-torn m04-torn--photo m04-torn--top m04-torn--bottom">
+    <div class="m04-torn__shadow" aria-hidden="true"></div>
+    <figure class="m04-torn__content">
+      <img [src]="info.photo" [alt]="info.photoAlt" />
+    </figure>
+  </div>
+
+  <div class="m04-hero__details">
+    <div class="m04-hero__parents">
+      <p class="m04-hero__parents-intro">{{ info.parents.intro }}</p>
+
+      <div class="m04-hero__parents-block">
+        <p class="m04-hero__parents-label">{{ info.parents.bride.label }}</p>
+        @for (name of info.parents.bride.names; track name) {
+          <p class="m04-hero__parents-name">{{ name }}</p>
+        }
+      </div>
+
+      <div class="m04-hero__parents-block">
+        <p class="m04-hero__parents-label">{{ info.parents.groom.label }}</p>
+        @for (name of info.parents.groom.names; track name) {
+          <p class="m04-hero__parents-name">{{ name }}</p>
+        }
+      </div>
+    </div>
+
+    <div class="m04-hero__announce">
+      <img
+        class="m04-floral m04-floral--names-left"
+        [src]="info.floralNamesLeft"
+        alt=""
+        aria-hidden="true"
+      />
+      <img
+        class="m04-floral m04-floral--names-right"
+        [src]="info.floralNamesRight"
+        alt=""
+        aria-hidden="true"
+      />
+      <p class="m04-hero__nosotros">{{ info.parents.nosotros }}</p>
+      <h1 class="m04-hero__names">
+        <span class="m04-hero__name m04-hero__name--husband">{{ info.husbandName }}</span>
+        <span class="m04-hero__amp" aria-hidden="true">&</span>
+        <span class="m04-hero__name m04-hero__name--wife">{{ info.wifeName }}</span>
+      </h1>
+      <p class="m04-hero__invite">{{ info.parents.inviteHonor }}</p>
+    </div>
+
+    <div class="m04-hero__datecard" [attr.aria-label]="info.date">
+      <p class="m04-hero__datecard-month">{{ info.dateParts.month }}</p>
+      <div class="m04-hero__datecard-row">
+        <div class="m04-hero__datecard-side">
+          <span class="m04-hero__datecard-rule" aria-hidden="true"></span>
+          <span class="m04-hero__datecard-weekday">{{ info.dateParts.dayOfWeek }}</span>
+          <span class="m04-hero__datecard-rule" aria-hidden="true"></span>
+        </div>
+        <span class="m04-hero__datecard-day">{{ info.dateParts.day }}</span>
+        <div class="m04-hero__datecard-side">
+          <span class="m04-hero__datecard-rule" aria-hidden="true"></span>
+          <span class="m04-hero__datecard-year">{{ info.dateParts.year }}</span>
+          <span class="m04-hero__datecard-rule" aria-hidden="true"></span>
+        </div>
+      </div>
+    </div>
+
+    <div class="m04-countdown" aria-live="polite">
+      <p class="m04-countdown__title">{{ countdownTitle }}</p>
+      <div class="m04-countdown__row">
+        <div class="m04-countdown__unit">
+          <span class="m04-countdown__value">{{ pad(countdown.days) }}</span>
+          <span class="m04-countdown__label">{{ countdownLabels.days }}</span>
+        </div>
+        <span class="m04-countdown__sep" aria-hidden="true">:</span>
+        <div class="m04-countdown__unit">
+          <span class="m04-countdown__value">{{ pad(countdown.hours) }}</span>
+          <span class="m04-countdown__label">{{ countdownLabels.hours }}</span>
+        </div>
+        <span class="m04-countdown__sep" aria-hidden="true">:</span>
+        <div class="m04-countdown__unit">
+          <span class="m04-countdown__value">{{ pad(countdown.minutes) }}</span>
+          <span class="m04-countdown__label">{{ countdownLabels.minutes }}</span>
+        </div>
+        <span class="m04-countdown__sep" aria-hidden="true">:</span>
+        <div class="m04-countdown__unit">
+          <span class="m04-countdown__value">{{ pad(countdown.seconds) }}</span>
+          <span class="m04-countdown__label">{{ countdownLabels.seconds }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,15 @@
+<section class="m04-closing">
+  <div class="m04-closing__copy">
+    <p class="m04-closing__message">{{ closing.message }}</p>
+    <h2 class="m04-closing__thanks">{{ closing.thankYou }}</h2>
+  </div>
+
+  <div class="m04-closing__photo-wrap">
+    <div class="m04-closing__photo m04-torn m04-torn--photo m04-torn--top">
+      <div class="m04-torn__shadow" aria-hidden="true"></div>
+      <figure class="m04-torn__content">
+        <img [src]="closing.photo" [alt]="closing.photoAlt" />
+      </figure>
+    </div>
+  </div>
+</section>

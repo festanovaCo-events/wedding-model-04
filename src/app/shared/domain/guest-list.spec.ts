@@ -22,7 +22,7 @@ function invitation(overrides?: Partial<InvitationInfoResponse['data']>): Invita
 
 describe('GuestList', () => {
   it('keeps the host and ignores a duplicated host guest', () => {
-    const list = GuestList.fromInvitation(invitation());
+    const list = GuestList.fromInvitation(invitation().data.invitation);
 
     expect(list.hostName).toBe('Jorge Mestre');
     expect(list.names).toEqual(['Jorge Mestre']);
@@ -30,7 +30,7 @@ describe('GuestList', () => {
   });
 
   it('adds a guest until the seat limit and blocks duplicates', () => {
-    const initial = GuestList.fromInvitation(invitation());
+    const initial = GuestList.fromInvitation(invitation().data.invitation);
     const withGuest = initial.add('  Invitado Demo  ');
     const duplicate = withGuest.add('Invitado Demo');
     const overLimit = withGuest.add('Otro');
@@ -42,14 +42,14 @@ describe('GuestList', () => {
   });
 
   it('does not remove the host', () => {
-    const list = GuestList.fromInvitation(invitation()).add('Invitado Demo');
+    const list = GuestList.fromInvitation(invitation().data.invitation).add('Invitado Demo');
 
     expect(list.removeAt(0).names).toEqual(['Jorge Mestre', 'Invitado Demo']);
     expect(list.removeAt(1).names).toEqual(['Jorge Mestre']);
   });
 
   it('knows when registered names do not fill every seat', () => {
-    const list = GuestList.fromInvitation(invitation());
+    const list = GuestList.fromInvitation(invitation().data.invitation);
 
     expect(list.isPartial).toBeTrue();
     expect(list.additionalGuests).toEqual([]);
@@ -67,7 +67,7 @@ describe('GuestList', () => {
           seats_reserved: 2,
           guests: [{ id: 'guest-1', name: 'Jorge Mestre' }],
         },
-      }),
+      }).data.invitation,
     );
 
     expect(list.maximumSeats).toBe(2);

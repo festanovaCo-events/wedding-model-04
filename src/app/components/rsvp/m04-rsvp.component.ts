@@ -3,8 +3,9 @@ import { CommonModule } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { combineLatest, Observable } from 'rxjs';
 import { filter, map } from 'rxjs/operators';
-import { WEDDING_INFO } from '../../shared/constants/wedding-info';
-import { MODEL_INFO } from '../../constants/model-info';
+import { HugeiconsIconComponent } from '@hugeicons/angular';
+import { Calendar03Icon } from '@hugeicons/core-free-icons';
+import { MODEL_04_INFO } from '../../constants/m04-info';
 import { ConfirmationModalHostComponent } from '../../shared/components/confirmations/confirmation-modal-host.component';
 import { ConfirmationStatusComponent } from '../../shared/components/confirmations/confirmation-status/confirmation-status.component';
 import { DeclinedStatusComponent } from '../../shared/components/confirmations/declined-status/declined-status.component';
@@ -12,33 +13,27 @@ import { ErrorStatusComponent } from '../../shared/components/confirmations/erro
 import { InvitationStateService } from '../../shared/services/invitation-state.service';
 import { ModalFlowService } from '../../shared/services/modal-flow.service';
 import {
-  InvitationInfoResponse,
   hasResponded,
   invitationStatusView,
 } from '../../shared/interfaces/invitation.interface';
-
-interface RsvpView {
-  invitationData: InvitationInfoResponse | null;
-  error: string | null;
-  isConfirmed: boolean;
-  isDeclined: boolean;
-}
+import type { RsvpView } from '../../shared/interfaces/rsvp-view.interface';
 
 @Component({
-  selector: 'app-model-rsvp',
+  selector: 'app-m04-rsvp',
   standalone: true,
   imports: [
     CommonModule,
+    HugeiconsIconComponent,
     ConfirmationModalHostComponent,
     ConfirmationStatusComponent,
     DeclinedStatusComponent,
     ErrorStatusComponent,
   ],
-  templateUrl: './model-rsvp.component.html',
+  templateUrl: './m04-rsvp.component.html',
 })
-export class ModelRsvpComponent implements OnInit {
-  readonly weddingInfo = WEDDING_INFO;
-  readonly info = MODEL_INFO.rsvp;
+export class M04RsvpComponent implements OnInit {
+  readonly info = MODEL_04_INFO.rsvp;
+  readonly CalendarIcon = Calendar03Icon;
   readonly view$: Observable<RsvpView>;
 
   isConfirmationModalVisible = false;

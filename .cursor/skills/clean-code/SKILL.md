@@ -66,17 +66,17 @@ Estas reglas se aplican en el SPA de invitación Festanova (template o modelo se
 
 ### Estructura canónica
 - UI del modelo: `src/app/components/` (hero, events, gifts, rsvp, …).
-- Página: `src/app/pages/model-page/`.
+- Página: `src/app/pages/model-page/` (`m04-page.component`).
 - Shared: `src/app/shared/` (servicios, dominio, temas, layout, confirmaciones).
-- Copy y datos del modelo: `src/app/constants/model-info.ts` + `src/app/shared/constants/wedding-info.ts`.
-- Estilos del modelo: `src/styles/model.css` (shell 1280px + breakpoints 768/1024; prefijo propio del modelo si aplica).
+- Copy y datos del modelo: `src/app/constants/m04-info.ts` + `src/app/shared/constants/wedding-info.ts`.
+- Estilos del modelo: `src/styles/model-04.css` (prefijo `m04-*`; breakpoints 768/1024).
 - Assets: `src/assets/images/` (sin subcarpeta del modelId salvo que el diseño lo exija).
 - No uses `src/app/features/`; esa ruta ya no existe en la plantilla.
 
 ### Reglas concretas
-- Constantes: el tope de cupos sale de `seats_reserved` vía `GuestList`. No uses límites inventados. Textos de UI salen de `MODEL_INFO` / `WEDDING_INFO`, no hardcodeados en plantillas.
+- Constantes: el tope de cupos sale de `seats_reserved` vía `GuestList`. No uses límites inventados. Textos de UI salen de `MODEL_04_INFO` / `WEDDING_INFO`, no hardcodeados en plantillas.
 - DRY: `hasResponded` es el único criterio de invitación ya respondida. `shouldShowExpiredInvitationPage` es la única regla de expiración. La música de fondo pasa por `BackgroundMusicService`.
-- Responsabilidad única: `ModelPageComponent` orquesta carga, expiración y modal. Los componentes de sección solo pintan. El dominio (`GuestList`) no lleva copy de interfaz.
+- Responsabilidad única: `M04PageComponent` orquesta carga, expiración y modal. Los componentes de sección solo pintan. El dominio (`GuestList`) no lleva copy de interfaz.
 - Encapsulación: el puerto que ya existe es `INVITATION_API` (HTTP/mock vía `RoutedInvitationApi`). El estado vive en `InvitationStateService`.
 - Temas: cambios de color/assets en `src/app/shared/themes/` y `ACTIVE_THEME`.
 - Tests: plazo, cupos, redirección, wizard de confirmación, y utilidades de fecha/tema cuando toque.

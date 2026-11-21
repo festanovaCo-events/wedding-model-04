@@ -1,10 +1,6 @@
 <div class="entrance-overlay" [@.disabled]="reduceMotion" (click)="onBackdrop()">
   <div class="curtain" [class.is-open]="phase === 'open'">
     <div class="reveal" [class.is-visible]="phase === 'open'">
-      <div class="reveal-crest" aria-hidden="true">
-        <img src="assets/images/wreath.png" alt="" />
-        <span>{{ wifeName.charAt(0) }} / {{ husbandName.charAt(0) }}</span>
-      </div>
       <p class="reveal-kicker">Bienvenidos</p>
       <p class="reveal-names">
         <span class="name">{{ wifeName }}</span>

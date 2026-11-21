@@ -1,0 +1,23 @@
+<section class="m04-gifts">
+  <div class="m04-gifts__icon" aria-hidden="true">
+    <hugeicons-icon [icon]="GiftIcon" [size]="44" color="currentColor" [strokeWidth]="1.4" />
+  </div>
+  <h2 class="m04-section-title m04-gifts__title">{{ gifts.title }}</h2>
+  <p class="m04-gifts__text">{{ gifts.description }}</p>
+
+  <div class="m04-gifts__option">
+    <p class="m04-gifts__option-label">{{ gifts.envelopeLabel }}</p>
+    <div class="m04-gifts__option-icon" aria-hidden="true">
+      <hugeicons-icon [icon]="MailIcon" [size]="34" color="currentColor" [strokeWidth]="1.35" />
+    </div>
+  </div>
+
+  <div class="m04-gifts__option">
+    <p class="m04-gifts__option-label">{{ gifts.transferLabel }}</p>
+    <div class="m04-gifts__bank">
+      @for (line of gifts.bankDetails; track line) {
+        <p>{{ line }}</p>
+      }
+    </div>
+  </div>
+</section>

@@ -1,0 +1,28 @@
+@if (view$ | async; as view) {
+  <section class="m04-rsvp">
+    @if (view.isConfirmed) {
+      <app-confirmation-status [invitationData]="view.invitationData" />
+    } @else if (view.isDeclined) {
+      <app-declined-status />
+    } @else if (view.error) {
+      <app-error-status [error]="view.error" />
+    } @else {
+      <div class="m04-rsvp__icon" aria-hidden="true">
+        <hugeicons-icon [icon]="CalendarIcon" [size]="42" color="currentColor" [strokeWidth]="1.35" />
+      </div>
+      <h2 class="m04-section-title m04-rsvp__title">{{ info.title }}</h2>
+      <p class="m04-rsvp__text">
+        {{ info.text }}
+        <strong>{{ info.deadline }}</strong>
+      </p>
+
+      <div class="m04-rsvp__actions">
+        <button type="button" class="m04-btn" (click)="openConfirmation()">
+          {{ info.confirmButtonText }}
+        </button>
+      </div>
+    }
+  </section>
+}
+
+<app-confirmation-modal-host [show]="isConfirmationModalVisible" (close)="closeConfirmationModal()" />

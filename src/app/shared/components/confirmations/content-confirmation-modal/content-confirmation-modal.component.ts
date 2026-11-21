@@ -53,7 +53,7 @@ export class ContentConfirmationModalComponent implements OnInit {
         if (this.guestListReady) {
           return;
         }
-        this.guestList = GuestList.fromInvitation(data);
+        this.guestList = GuestList.fromInvitation(data.data.invitation);
         this.guestListReady = true;
       });
 
