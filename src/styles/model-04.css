@@ -1,10 +1,12 @@
 /*
  * Shell responsive + diseño boho terracota (Carlos & Camila).
- * Breakpoints: 768px (md), 1024px (lg). Tope 1280px.
+ * Shell como model-01/02/03: 100% en móvil, tope 1280px.
+ * Breakpoints de contenido: 768px (md), 1024px (lg).
  */
 
 html:has(.m04-page) {
   background: #e8dfd4;
+  overflow-x: clip;
 }
 
 app-m04-page,
@@ -76,7 +78,7 @@ html:has(.m04-page) app-footer {
   );
 
   width: 100%;
-  max-width: 560px;
+  max-width: 1280px;
   margin: 0 auto;
   overflow-x: clip;
   background: var(--m04-cream);
@@ -86,25 +88,13 @@ html:has(.m04-page) app-footer {
   position: relative;
 }
 
-@media (min-width: 768px) {
-  .m04-page {
-    max-width: 640px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .m04-page {
-    max-width: 720px;
-  }
-}
-
 html:has(.m04-page) app-footer {
   display: block;
 }
 
 html:has(.m04-page) app-footer > footer {
   width: 100%;
-  max-width: 720px;
+  max-width: 1280px;
   margin-inline: auto;
 }
 
