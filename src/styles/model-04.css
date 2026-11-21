@@ -1082,6 +1082,108 @@ html:has(.m04-page) app-footer > footer {
   }
 }
 
+@media (max-width: 380px) {
+  .m04-section-title {
+    letter-spacing: 0.09em;
+  }
+
+  .m04-floral--dress {
+    width: min(52vw, 190px);
+  }
+
+  .m04-floral--names-left,
+  .m04-floral--names-right {
+    width: min(34vw, 120px);
+  }
+
+  .m04-hero__intro {
+    padding: 3.25rem 1.25rem 3rem;
+  }
+
+  .m04-hero__monogram-letter {
+    font-size: clamp(2.75rem, 14vw, 4.6rem);
+  }
+
+  .m04-hero__kicker {
+    letter-spacing: 0.22em;
+  }
+
+  .m04-hero__nosotros {
+    letter-spacing: 0.2em;
+  }
+
+  .m04-hero__names {
+    font-size: clamp(2.85rem, 14.5vw, 4.7rem);
+  }
+
+  .m04-hero__name--husband {
+    transform: translateX(-0.4rem);
+  }
+
+  .m04-hero__name--wife {
+    transform: translateX(0.4rem);
+  }
+
+  .m04-hero__datecard-month {
+    letter-spacing: 0.22em;
+  }
+
+  .m04-hero__datecard-row {
+    grid-template-columns: minmax(3.6rem, 1fr) auto minmax(3.6rem, 1fr);
+    column-gap: 0.55rem;
+  }
+
+  .m04-hero__datecard-side {
+    width: 3.8rem;
+  }
+
+  .m04-hero__datecard-weekday,
+  .m04-hero__datecard-year {
+    letter-spacing: 0.1em;
+  }
+
+  .m04-hero__datecard-day {
+    font-size: clamp(3.5rem, 18vw, 5.6rem);
+  }
+
+  .m04-countdown__title {
+    letter-spacing: 0.18em;
+  }
+
+  .m04-countdown__unit {
+    min-width: 2.6rem;
+  }
+
+  .m04-countdown__value {
+    font-size: clamp(1.5rem, 6.5vw, 2.35rem);
+  }
+
+  .m04-countdown__sep {
+    font-size: 1.35rem;
+  }
+
+  .m04-events__title {
+    letter-spacing: 0.09em;
+  }
+
+  .m04-btn--contact {
+    min-width: 0;
+    width: 100%;
+    max-width: 16rem;
+  }
+
+  .m04-closing__message {
+    max-width: 18rem;
+    margin-left: auto;
+    margin-right: auto;
+    letter-spacing: 0.08em;
+  }
+
+  .m04-closing__thanks {
+    font-size: clamp(2.2rem, 11vw, 3.6rem);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .m04-hero__quote,
   .m04-hero__monogram,
